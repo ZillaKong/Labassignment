@@ -66,4 +66,13 @@ class User extends db_connection
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function emailExists($email)
+    {
+        $stmt = $this->db->prepare("SELECT customer_id FROM customer WHERE customer_email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        return $stmt->num_rows > 0;
+    }
+
 }

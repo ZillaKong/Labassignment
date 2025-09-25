@@ -18,3 +18,19 @@ function get_user_by_email_ctr($email)
     $user = new User();
     return $user->getUserByEmail($email);
 }
+
+function email_exists_ctr($email)
+{
+    $user = new User();
+    return $user->emailExists($email);
+}
+
+function user_authentication_ctr($email, $password)
+{
+    $user = new User();
+    $user_data = $user->getUserByEmail($email);
+    if ($user_data && password_verify($password, $user_data['password'])) {
+        return $user_data;
+    }
+    return false;
+}
